@@ -12,7 +12,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background-color: #0a0a0c;
+            background-color: #121214;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
@@ -22,18 +22,53 @@
             overflow: hidden;
             position: relative;
         }
+        
+        /* Écran d'accueil obligatoire pour débloquer le JavaScript de Chrome */
+        #game-launcher {
+            text-align: center;
+            background-color: #1e1e24;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 99999; 
+        }
+        .btn-start {
+            background-color: #30d158;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 250px;
+            display: inline-block;
+            position: relative;
+            z-index: 100000; 
+            transition: background 0.2s;
+        }
+        .btn-start:hover {
+            background-color: #24b34b;
+        }
 
+        /* Zone de simulation des alertes */
         #simulation-zone {
-            display: block;
-            position: fixed;
+            display: none;
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background-color: #0a0a0c;
             z-index: 10;
         }
 
+        /* Animation de secousse de l'écran */
         .shake-effect {
             animation: screenShake 0.15s ease-in-out;
         }
@@ -46,6 +81,7 @@
             100% { transform: translate(0, 0); }
         }
 
+        /* Effet Flash Rouge (Bouton X Piège) */
         .blood-flash {
             animation: bloodFlashAnim 0.3s ease-out;
         }
@@ -54,6 +90,7 @@
             100% { box-shadow: inset 0 0px 0px rgba(221, 44, 0, 0); background-color: #0a0a0c; }
         }
 
+        /* Style des fausses fenêtres d'avertissement */
         .fake-window {
             position: absolute;
             background-color: #f8f0f0;
@@ -116,8 +153,10 @@
         .warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
         .vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
         
+        /* Arrière-plan pour le triple-clic de secours tactile */
         #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
 
+        /* Faux Écran Bleu (BSOD) */
         #bsod-screen {
             display: none;
             position: fixed;
@@ -146,6 +185,7 @@
         .bsod-info-text a { color: #ffffff; text-decoration: none; }
         .bsod-code-details { margin-top: 12px; font-size: 12px; color: #ffffff; }
 
+        /* FAUX ÉCRAN DE CONNEXION WINDOWS 11 */
         #login-screen {
             display: none;
             position: fixed;
@@ -228,10 +268,19 @@
 </head>
 <body>
 
+    <!-- 1. Écran de lancement (Le clic ici donne l'autorisation à JavaScript) -->
+    <div id="game-launcher">
+        <h2>Steven Game Project</h2>
+        <p style="color: #a0a0a5; margin-top: 5px;">Version d'évaluation HTML</p>
+        <button class="btn-start" onclick="initiateSequence()">START GAME</button>
+    </div>
+
+    <!-- 2. Zone contenant la simulation visuelle -->
     <div id="simulation-zone">
         <div id="emergency-background-trigger"></div>
     </div>
 
+    <!-- 3. Réplique Faux Écran Bleu (BSOD) -->
     <div id="bsod-screen">
         <div class="bsod-smiley">:(</div>
         <div class="bsod-message">Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</div>
@@ -240,51 +289,3 @@
         <div class="bsod-footer">
             <div class="bsod-qrcode">
                 <div class="qr-black"></div><div class="qr-black"></div><div class="qr-block"></div>
-                <div class="qr-black"></div><div class="qr-block"></div><div class="qr-black"></div>
-                <div class="qr-block"></div><div class="qr-black"></div><div class="qr-black"></div>
-            </div>
-            <div class="bsod-info-text">
-                For more information about this issue and possible fixes, visit <a href="#">https://windows.com</a>
-                <div class="bsod-code-details">
-                    If you call a support person, give them this info:<br>
-                    Stop code: <span style="font-weight: bold;">CRITICAL_PROCESS_DIED</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="login-screen">
-        <div class="login-avatar"></div>
-        <div class="login-username">Utilisateur</div>
-        
-        <form onsubmit="handleLoginSubmit(event)">
-            <div class="login-input-container">
-                <input type="password" class="login-password-field" placeholder="Mot de passe" required id="pwd-field">
-                <button type="submit" class="login-submit-btn">➔</button>
-            </div>
-        </form>
-    </div>
-
-<script>
-    let currentSpeed = 800;
-    let minSpeed = 120;
-    let speedInterval;
-    let loopTimeout;
-    let crashTimer;
-    let progressInterval;
-    let clickCount = 0;
-    let clickTimer;
-    
-    const alertMessages = [
-        "SYSTEM OVERFLOW",
-        "Memory Leaking...",
-        "CRITICAL CORRUPTION",
-        "Firewall Destroyed"
-    ];
-
-    // Correction : Lancement ultra-direct immédiat dès que le script est lu
-    function initiateSequence() {
-        const bgTrigger = document.getElementById('emergency-background-trigger');
-        if (bgTrigger) {
-            bgTrigger.addEventListener('click', handleEmergencyTap);
-        }
