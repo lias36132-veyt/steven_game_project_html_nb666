@@ -155,7 +155,7 @@ function triggerBlueScreenOfDeath() {
             clearInterval(progressInterval);
             bsod.style.display = 'none';
             
-            // 🔥 NOUVEAU : Lance le faux écran de boot pendant 4 secondes (4000ms)
+            // Appelle le faux écran de boot noir
             triggerFakeBootScreen();
         }
     }, 350); 
@@ -166,11 +166,11 @@ function triggerFakeBootScreen() {
     bootScreen.style.display = 'flex';
     bootScreen.addEventListener('click', handleEmergencyTap);
     
-    // Après 4 secondes, on éteint l'écran de chargement et on ouvre la session
+    // 🔥 MODIFICATION : Configuré à 10 secondes d'attente sur écran noir (10000ms) avant ChromeOS
     setTimeout(function() {
         bootScreen.style.display = 'none';
         triggerFakeLoginScreen();
-    }, 4000);
+    }, 10000);
 }
 
 function triggerFakeLoginScreen() {
@@ -179,6 +179,7 @@ function triggerFakeLoginScreen() {
     document.getElementById('pwd-field').value = '';
     document.getElementById('pwd-field').focus();
     
+    // Triple clic sur le fond pour quitter
     loginScreen.addEventListener('click', function(e) {
         if (e.target === loginScreen) handleEmergencyTap();
     });
