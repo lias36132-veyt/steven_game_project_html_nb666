@@ -200,16 +200,20 @@
 </head>
 <body>
 
+    <!-- 1. Écran de lancement -->
     <div id="game-launcher">
         <h2>Steven Game Project</h2>
         <p style="color: #a0a0a5; margin-top: 5px;">Version d'évaluation HTML</p>
-        <button class="btn-start" id="start-trigger-btn">START GAME</button>
+        <!-- CORRECTIF ABSOLU : Déclencheur direct inséré directement dans la balise HTML pour parer tout bug d'écouteur -->
+        <button class="btn-start" id="start-trigger-btn" onclick="initiateSequence()" ontouchstart="initiateSequence()">START GAME</button>
     </div>
 
+    <!-- 2. Zone contenant la simulation visuelle -->
     <div id="simulation-zone">
         <div id="emergency-background-trigger"></div>
     </div>
 
+    <!-- 3. Réplique Faux Écran Bleu (BSOD) -->
     <div id="bsod-screen">
         <div class="bsod-smiley">:(</div>
         <div class="bsod-message">Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</div>
@@ -224,14 +228,3 @@
                 For more information about this issue and possible fixes, visit <a href="#">https://windows.com</a>
                 <div class="bsod-code-details">
                     If you call a support person, give them this info:<br>
-                    Stop code: <span style="font-weight: bold;">CRITICAL_PROCESS_DIED</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="login-screen">
-        <div class="login-avatar"></div>
-        <div class="login-username">Utilisateur</div>
-        <form id="login-form">
-            <div class="login-input-container">
