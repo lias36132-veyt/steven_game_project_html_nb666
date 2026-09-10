@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    background-color: #121214;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+#game-launcher {
+    text-align: center;
+    background-color: #1e1e24;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    z-index: 99999; 
+}
+.btn-start {
+    background-color: #30d158;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 250px;
+    display: inline-block;
+    position: relative;
+    z-index: 100000; 
+    transition: background 0.2s;
+}
+.btn-start:hover { background-color: #24b34b; }
+#simulation-zone {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0a0c;
+    z-index: 10;
+}
+.shake-effect { animation: screenShake 0.15s ease-in-out; }
+@keyframes screenShake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -1px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+.blood-flash { animation: bloodFlashAnim 0.3s ease-out; }
+@keyframes bloodFlashAnim {
+    0% { box-shadow: inset 0 0 100px rgba(221, 44, 0, 0.8); background-color: #200000; }
+    100% { box-shadow: inset 0 0px 0px rgba(221, 44, 0, 0); background-color: #0a0a0c; }
+}
+.fake-window {
+    position: absolute;
+    background-color: #f8f0f0;
+    color: #000000;
+    border: 1px solid #dd2c00;
+    width: 280px;
+    box-shadow: 0 4px 16px rgba(100,0,0,0.5);
+    font-family: sans-serif;
+    z-index: 20;
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+}
+.window-header {
+    background-color: #dd2c00;
+    color: white;
+    padding: 6px 10px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.header-left { display: flex; align-items: center; gap: 8px; }
+.microsoft-logo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; width: 12px; height: 12px; }
+.logo-square { width: 5.25px; height: 5.25px; }
+.sq-red { background-color: #ff1100; }
+.sq-green { background-color: #557700; }
+.sq-blue { background-color: #0044aa; }
+.sq-yellow { background-color: #aa7700; }
+.close-btn {
+    cursor: pointer;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.1s;
+    display: inline-block;
+}
+.close-btn:hover, .close-btn:active { background-color: #880000; color: white; }
+.window-body { padding: 15px; font-size: 13px; display: flex; align-items: center; }
+.warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
+.vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
+#emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
+#bsod-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0078d7;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 10% 8% 5% 8%;
+    z-index: 999998;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    user-select: none;
+}
+.bsod-smiley { font-size: 110px; font-weight: 300; line-height: 1; margin-bottom: 30px; }
+.bsod-message { font-size: 22px; font-weight: 300; line-height: 1.4; max-width: 900px; margin-bottom: 35px; }
+.bsod-percentage { font-size: 22px; font-weight: 300; margin-bottom: 45px; }
+.bsod-footer { display: flex; align-items: flex-start; gap: 25px; max-width: 800px; }
+.bsod-qrcode { width: 90px; height: 90px; background-color: #ffffff; padding: 5px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex-shrink: 0; }
+.qr-block { background-color: #0078d7; }
+.qr-black { background-color: #000000; }
+.bsod-info-text { font-size: 13px; line-height: 1.5; color: #e0e0e0; }
+.bsod-info-text a { color: #ffffff; text-decoration: none; }
+.bsod-code-details { margin-top: 12px; font-size: 12px; color: #ffffff; }
+#login-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, #2a3554 0%, #0f1322 100%);
+    z-index: 999999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.login-avatar {
+    width: 120px;
+    height: 120px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.login-avatar::before { content: "👤"; font-size: 65px; }
+.login-username { font-size: 32px; font-weight: 400; color: #ffffff; margin-bottom: 25px; }
+.login-input-container {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    width: 260px;
+    height: 36px;
+    padding: 0 5px 0 10px;
+    transition: border-color 0.2s;
+}
+.login-input-container:focus-within { border-color: #00a4ef; background-color: rgba(255, 255, 255, 0.25); }
+.login-password-field { background: none; border: none; outline: none; color: #ffffff; font-size: 14px; width: 85%; height: 100%; }
+.login-password-field::placeholder { color: rgba(255,255,255,0.6); }
+.login-submit-btn { background: none; border: none; color: #ffffff; font-size: 16px; cursor: pointer; width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; }
+.login-submit-btn:hover { color: #00a4ef; }
+@media (max-width: 600px) {
+    #bsod-screen { padding: 15% 6% 5% 6%; }
+    .bsod-smiley { font-size: 80px; margin-bottom: 20px; }
+    .bsod-message { font-size: 17px; margin-bottom: 25px; }
+    .bsod-percentage { font-size: 17px; margin-bottom: 35px; }
+    .bsod-footer { flex-direction: column; gap: 20px; }
+    .bsod-qrcode { width: 75px; height: 75px; }
+}
