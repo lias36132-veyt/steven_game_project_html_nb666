@@ -139,7 +139,6 @@ body {
 .bsod-info-text a { color: #ffffff; text-decoration: none; }
 .bsod-code-details { margin-top: 12px; font-size: 12px; color: #ffffff; }
 
-/* 🔥 DESIGN ÉCRAN DE BOOT WINDOWS 11 */
 #boot-screen {
     display: none;
     position: fixed;
@@ -147,7 +146,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000000; /* Fond noir de reboot */
+    background-color: #000000; 
     z-index: 999999;
     flex-direction: column;
     justify-content: center;
@@ -162,18 +161,8 @@ body {
     height: 90px;
     margin-bottom: 80px;
 }
-.win-box {
-    width: 43px;
-    height: 43px;
-    background-color: #ffffff;
-}
-/* Recréation de la roulette de chargement fluide de Windows */
-.win-spinner {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    margin-bottom: 25px;
-}
+.win-box { width: 43px; height: 43px; background-color: #ffffff; }
+.win-spinner { position: relative; width: 40px; height: 40px; margin-bottom: 25px; }
 .win-spinner .dot {
     position: absolute;
     width: 4px;
@@ -201,13 +190,9 @@ body {
     75% { transform: rotate(900deg); opacity: 0; }
     100% { transform: rotate(900deg); opacity: 0; }
 }
-.boot-text {
-    font-size: 15px;
-    color: #ffffff;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-}
+.boot-text { font-size: 15px; color: #ffffff; font-weight: 300; letter-spacing: 0.5px; }
 
+/* 🔥 DESIGN REPRODUCTION COMPLÈTE CHROMEOS */
 #login-screen {
     display: none;
     position: fixed;
@@ -215,48 +200,127 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle, #2a3554 0%, #0f1322 100%);
+    background: radial-gradient(ellipse at top, #344a68 0%, #151a26 100%); /* Dégradé bleuté ChromeOS */
     z-index: 1000000;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    user-select: none;
 }
-.login-avatar {
-    width: 120px;
-    height: 120px;
-    background-color: #ffffff;
+.chromeos-user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 60px;
+}
+/* Recréation de l'avatar d'invité gris circulaire (Image 2) */
+.chromeos-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
-.login-avatar::before { content: "👤"; font-size: 65px; }
-.login-username { font-size: 32px; font-weight: 400; color: #ffffff; margin-bottom: 25px; }
-.login-input-container {
+.guest-svg-icon {
+    width: 60px;
+    height: 60px;
+    fill: #cccccc; /* Gris neutre de l'icône d'invité */
+}
+.chromeos-username {
+    font-size: 24px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+/* Barre d'input de mot de passe floutée semi-transparente */
+.chromeos-input-wrapper {
     display: flex;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    border-radius: 4px;
-    width: 260px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px; /* Plus arrondi sur ChromeOS */
+    width: 240px;
     height: 36px;
-    padding: 0 5px 0 10px;
-    transition: border-color 0.2s;
+    padding: 0 4px 0 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.login-input-container:focus-within { border-color: #00a4ef; background-color: rgba(255, 255, 255, 0.25); }
-.login-password-field { background: none; border: none; outline: none; color: #ffffff; font-size: 14px; width: 85%; height: 100%; }
-.login-password-field::placeholder { color: rgba(255,255,255,0.6); }
-.login-submit-btn { background: none; border: none; color: #ffffff; font-size: 16px; cursor: pointer; width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; }
-.login-submit-btn:hover { color: #00a4ef; }
-@media (max-width: 600px) {
-    #bsod-screen { padding: 15% 6% 5% 6%; }
-    .bsod-smiley { font-size: 80px; margin-bottom: 20px; }
-    .bsod-message { font-size: 17px; margin-bottom: 25px; }
-    .bsod-percentage { font-size: 17px; margin-bottom: 35px; }
-    .bsod-footer { flex-direction: column; gap: 20px; }
-    .bsod-qrcode { width: 75px; height: 75px; }
+.chromeos-password-field {
+    background: none;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    width: 82%;
+    height: 100%;
+}
+.chromeos-password-field::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+.chromeos-submit-arrow {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+.chromeos-submit-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Fausse étagère inférieure (Shelf) */
+.chromeos-shelf {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+.shelf-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.shelf-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+/* Reproduction exacte du bouton blanc encadré rouge de votre image */
+.highlighted-btn {
+    background-color: #ffffff !important;
+    color: #1a1a24 !important;
+    border: 2px solid #ff3b30 !important; /* Bordure d'alerte rouge */
+    font-weight: bold;
+}
+.shelf-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #e0e0e0;
+}
+.shelf-time {
+    font-weight: 500;
 }
