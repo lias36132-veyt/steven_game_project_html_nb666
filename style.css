@@ -192,7 +192,6 @@ body {
 }
 .boot-text { font-size: 15px; color: #ffffff; font-weight: 300; letter-spacing: 0.5px; }
 
-/* 🔥 DESIGN REPRODUCTION COMPLÈTE CHROMEOS */
 #login-screen {
     display: none;
     position: fixed;
@@ -200,7 +199,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(ellipse at top, #344a68 0%, #151a26 100%); /* Dégradé bleuté ChromeOS */
+    background: radial-gradient(ellipse at top, #2b3952 0%, #0d111a 100%);
     z-index: 1000000;
     flex-direction: column;
     justify-content: center;
@@ -212,23 +211,23 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
-/* Recréation de l'avatar d'invité gris circulaire (Image 2) */
 .chromeos-avatar {
     width: 100px;
     height: 100px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .guest-svg-icon {
-    width: 60px;
-    height: 60px;
-    fill: #cccccc; /* Gris neutre de l'icône d'invité */
+    width: 55px;
+    height: 55px;
+    fill: #a0a5b5;
 }
 .chromeos-username {
     font-size: 24px;
@@ -237,17 +236,15 @@ body {
     margin-bottom: 25px;
     letter-spacing: 0.5px;
 }
-/* Barre d'input de mot de passe floutée semi-transparente */
 .chromeos-input-wrapper {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px; /* Plus arrondi sur ChromeOS */
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
     width: 240px;
     height: 36px;
     padding: 0 4px 0 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 .chromeos-password-field {
     background: none;
@@ -258,11 +255,9 @@ body {
     width: 82%;
     height: 100%;
 }
-.chromeos-password-field::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
+.chromeos-password-field::placeholder { color: rgba(255, 255, 255, 0.35); }
 .chromeos-submit-arrow {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
     border: none;
     color: #ffffff;
     font-size: 14px;
@@ -273,54 +268,76 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.2s;
-}
-.chromeos-submit-arrow:hover {
-    background-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Fausse étagère inférieure (Shelf) */
-.chromeos-shelf {
+/* 🔥 NOUVELLE CONSOLE ET REPRODUCTION DU BOUTON RADIO (Image 2) */
+.custom-bottom-console {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 48px;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
+    height: 50px;
+    background-color: #1b1b1f; /* Bande gris foncé */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 18px;
 }
-.shelf-left {
+.console-left-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
+    width: 80%;
 }
-.shelf-btn {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+/* Réplique exacte en pur CSS du bouton radio de votre 2ème image */
+.custom-radio-button {
+    width: 32px;
+    height: 32px;
+    background-color: #e0e0e2; /* Cercle extérieur blanc cassé */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.radio-core {
+    width: 18px;
+    height: 18px;
+    background-color: #1c1c1e; /* Centre sombre */
+    border-radius: 50%;
+    border: 3px solid #8e8e93; /* Anneau intermédiaire gris */
+}
+/* Ligne de commande terminal style version test */
+.console-input-line {
+    display: flex;
+    align-items: center;
+    background-color: #0c0c0e; /* Fond noir du champ textuel */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+    height: 32px;
+    padding: 0 10px;
+}
+.console-prompt {
+    font-family: monospace;
+    font-size: 13px;
+    color: #30d158; /* Vert console */
+    margin-right: 8px;
+    user-select: none;
+}
+.console-text-field {
+    background: none;
+    border: none;
+    outline: none;
     color: #ffffff;
-    padding: 6px 14px;
+    font-family: monospace;
     font-size: 13px;
-    border-radius: 16px;
-    cursor: pointer;
+    width: 100%;
 }
-/* Reproduction exacte du bouton blanc encadré rouge de votre image */
-.highlighted-btn {
-    background-color: #ffffff !important;
-    color: #1a1a24 !important;
-    border: 2px solid #ff3b30 !important; /* Bordure d'alerte rouge */
-    font-weight: bold;
-}
-.shelf-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.console-right-status {
     font-size: 13px;
-    color: #e0e0e0;
-}
-.shelf-time {
-    font-weight: 500;
+    color: #a0a5b5;
 }
