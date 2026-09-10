@@ -55,18 +55,18 @@
         <div class="boot-text">Veuillez patienter...</div>
     </div>
 
-    <!-- 5. 🔥 NOUVEAU : Réplique de l'Écran de Connexion ChromeOS avec l'avatar demandé -->
+    <!-- 5. Écran de Connexion Personnalisé -->
     <div id="login-screen">
-        <!-- Conteneur central utilisateur -->
         <div class="chromeos-user-card">
-            <!-- Profil d'invité gris identique à votre 2ème image -->
+            <!-- Avatar d'invité gris circulaire -->
             <div class="chromeos-avatar">
                 <svg viewBox="0 0 24 24" class="guest-svg-icon">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                 </svg>
             </div>
             
-            <div class="chromeos-username">Taylor Smith</div>
+            <!-- Changement de nom demandé -->
+            <div class="chromeos-username">Guest_User</div>
             
             <form id="login-form">
                 <div class="chromeos-input-wrapper">
@@ -76,17 +76,20 @@
             </form>
         </div>
 
-        <!-- Fausse barre d'état système inférieure ChromeOS -->
-        <div class="chromeos-shelf">
-            <div class="shelf-left">
-                <button class="shelf-btn" type="button">⎋ Shut down</button>
-                <div class="shelf-btn highlighted-btn">ADSelfService Plus</div>
-                <button class="shelf-btn" type="button">Browse as Guest</button>
-                <button class="shelf-btn" type="button">Add Person</button>
+        <!-- Zone inférieure modifiée selon vos images (Bouton radio + Ligne de saisie de test console) -->
+        <div class="custom-bottom-console">
+            <div class="console-left-controls">
+                <!-- Bouton radio interactif reproduit d'après votre 2ème image -->
+                <div class="custom-radio-button">
+                    <div class="radio-core"></div>
+                </div>
+                <!-- Ligne de saisie style terminal/test en continu -->
+                <div class="console-input-line">
+                    <span class="console-prompt">root@system:~#</span>
+                    <input type="text" class="console-text-field" placeholder="Saisir une commande de test..." readonly>
+                </div>
             </div>
-            <div class="shelf-right">
-                <span class="shelf-icon">📶</span>
-                <span class="shelf-icon">🔋</span>
+            <div class="console-right-status">
                 <span class="shelf-time">6:30</span>
             </div>
         </div>
