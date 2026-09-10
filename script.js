@@ -90,102 +90,105 @@ function createWarningWindow() {
     const posX = Math.random() * (window.innerWidth - windowWidth);
     const posY = Math.random() * (window.innerHeight - windowHeight - 60) + 50; 
     
-    win.style.left = Math.max(0, posX) + 'px';
-    win.style.top = Math.max(0, posY) + 'px';
-    
-    const randomMessage = alertMessages[Math.floor(Math.random() * alertMessages.length)];
-    
-    win.innerHTML = `
-        <div class="window-header">
-            <div class="header-left">
-                <div class="microsoft-logo">
-                    <div class="logo-square sq-red"></div>
-                    <div class="logo-square sq-green"></div>
-                    <div class="logo-square sq-blue"></div>
-                    <div class="logo-square sq-yellow"></div>
+        win.style.left = Math.max(0, posX) + 'px';
+        win.style.top = Math.max(0, posY) + 'px';
+        
+        const randomMessage = alertMessages[Math.floor(Math.random() * alertMessages.length)];
+        
+        win.innerHTML = `
+            <div class="window-header">
+                <div class="header-left">
+                    <div class="microsoft-logo">
+                        <div class="logo-square sq-red"></div>
+                        <div class="logo-square sq-green"></div>
+                        <div class="logo-square sq-blue"></div>
+                        <div class="logo-square sq-yellow"></div>
+                    </div>
+                    <span>Système Malveillant</span>
                 </div>
-                <span>Système Malveillant</span>
+                <span class="close-btn" id="trap-close-btn">✕</span>
             </div>
-            <span class="close-btn" id="trap-close-btn">✕</span>
-        </div>
-        <div class="window-body">
-            <span class="warning-sign">☠</span>
-            <div class="vertical-divider"></div>
-            <span>${randomMessage}</span>
-        </div>
-    `;
-    
-    win.querySelector('#trap-close-btn').addEventListener('click', function(e) {
-        e.stopPropagation();
-        triggerTrapEffect();
-    });
-    
-    zone.appendChild(win);
-    zone.classList.remove('shake-effect');
-    void zone.offsetWidth;
-    zone.classList.add('shake-effect');
-}
+            <div class="window-body">
+                <span class="warning-sign">☠</span>
+                <div class="vertical-divider"></div>
+                <span>${randomMessage}</span>
+            </div>
+        `;
+        
+        win.querySelector('#trap-close-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            triggerTrapEffect();
+        });
+        
+        zone.appendChild(win);
+        zone.classList.remove('shake-effect');
+        void zone.offsetWidth;
+        zone.classList.add('shake-effect');
+    }
 
-function triggerTrapEffect() {
-    const zone = document.getElementById('simulation-zone');
-    zone.classList.remove('blood-flash');
-    void zone.offsetWidth;
-    zone.classList.add('blood-flash');
-    createWarningWindow();
-    createWarningWindow();
-}
+    function triggerTrapEffect() {
+        const zone = document.getElementById('simulation-zone');
+        zone.classList.remove('blood-flash');
+        void zone.offsetWidth;
+        zone.classList.add('blood-flash');
+        createWarningWindow();
+        createWarningWindow();
+    }
 
-function triggerBlueScreenOfDeath() {
-    clearTimeout(loopTimeout);
-    clearInterval(speedInterval);
-    
-    document.getElementById('simulation-zone').style.display = 'none';
-    const bsod = document.getElementById('bsod-screen');
-    bsod.style.display = 'flex';
-    bsod.addEventListener('click', handleEmergencyTap);
-    
-    let progress = 0;
-    document.getElementById('progress-val').innerText = progress;
-    
-    progressInterval = setInterval(function() {
-        if (progress < 100) {
-            progress += Math.floor(Math.random() * 3) + 1;
-            if (progress > 100) progress = 100;
-            document.getElementById('progress-val').innerText = progress;
-        } else {
-            clearInterval(progressInterval);
-            bsod.style.display = 'none';
-            setTimeout(triggerFakeLoginScreen, 1500);
-        }
-    }, 150);
-}
+    // 🔥 MODIFICATION : Chargement du Faux Écran Bleu ralenti de manière très réaliste
+    function triggerBlueScreenOfDeath() {
+        clearTimeout(loopTimeout);
+        clearInterval(speedInterval);
+        
+        document.getElementById('simulation-zone').style.display = 'none';
+        const bsod = document.getElementById('bsod-screen');
+        bsod.style.display = 'flex';
+        bsod.addEventListener('click', handleEmergencyTap);
+        
+        let progress = 0;
+        document.getElementById('progress-val').innerText = progress;
+        
+        // Progression chiffre par chiffre, ralentie pour simuler un vrai freeze système
+        progressInterval = setInterval(function() {
+            if (progress < 100) {
+                // Avance de 1% à chaque tick pour être ultra-fluide et réaliste
+                progress += 1; 
+                document.getElementById('progress-val').innerText = progress;
+            } else {
+                clearInterval(progressInterval);
+                bsod.style.display = 'none';
+                // Transition d'écran noir avant la page de mot de passe
+                setTimeout(triggerFakeLoginScreen, 1500);
+            }
+        }, 350); // Changement toutes les 350ms (environ 35 secondes au total pour atteindre 100%)
+    }
 
-function triggerFakeLoginScreen() {
-    const loginScreen = document.getElementById('login-screen');
-    loginScreen.style.display = 'flex';
-    document.getElementById('pwd-field').value = '';
-    document.getElementById('pwd-field').focus();
-    
-    loginScreen.addEventListener('click', function(e) {
-        if (e.target === loginScreen) handleEmergencyTap();
-    });
-}
+    function triggerFakeLoginScreen() {
+        const loginScreen = document.getElementById('login-screen');
+        loginScreen.style.display = 'flex';
+        document.getElementById('pwd-field').value = '';
+        document.getElementById('pwd-field').focus();
+        
+        loginScreen.addEventListener('click', function(e) {
+            if (e.target === loginScreen) handleEmergencyTap();
+        });
+    }
 
-function stopSimulation() {
-    clearTimeout(loopTimeout);
-    clearTimeout(crashTimer);
-    clearInterval(speedInterval);
-    clearInterval(progressInterval);
-    currentSpeed = 800;
-    isSequenceStarted = false;
-    
-    document.getElementById('bsod-screen').removeEventListener('click', handleEmergencyTap);
-    document.getElementById('bsod-screen').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'none';
-    
-    const zone = document.getElementById('simulation-zone');
-    zone.style.display = 'none';
-    zone.innerHTML = '<div id="emergency-background-trigger"></div>'; 
-    
-    document.getElementById('game-launcher').style.display = 'block';
-}
+    function stopSimulation() {
+        clearTimeout(loopTimeout);
+        clearTimeout(crashTimer);
+        clearInterval(speedInterval);
+        clearInterval(progressInterval);
+        currentSpeed = 800;
+        isSequenceStarted = false;
+        
+        document.getElementById('bsod-screen').removeEventListener('click', handleEmergencyTap);
+        document.getElementById('bsod-screen').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'none';
+        
+        const zone = document.getElementById('simulation-zone');
+        zone.style.display = 'none';
+        zone.innerHTML = '<div id="emergency-background-trigger"></div>'; 
+        
+        document.getElementById('game-launcher').style.display = 'block';
+    }
