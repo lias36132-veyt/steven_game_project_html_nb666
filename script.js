@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("start-trigger-btn").addEventListener("click", initiateSequence);
     document.getElementById("login-form").addEventListener("submit", function(event) {
         event.preventDefault();
-        stopSimulation();
+        handlePasswordValidation();
     });
 });
 
@@ -154,8 +154,6 @@ function triggerBlueScreenOfDeath() {
         } else {
             clearInterval(progressInterval);
             bsod.style.display = 'none';
-            
-            // Appelle le faux écran de boot noir
             triggerFakeBootScreen();
         }
     }, 350); 
@@ -166,7 +164,6 @@ function triggerFakeBootScreen() {
     bootScreen.style.display = 'flex';
     bootScreen.addEventListener('click', handleEmergencyTap);
     
-    // 🔥 MODIFICATION : Configuré à 10 secondes d'attente sur écran noir (10000ms) avant ChromeOS
     setTimeout(function() {
         bootScreen.style.display = 'none';
         triggerFakeLoginScreen();
@@ -176,13 +173,63 @@ function triggerFakeBootScreen() {
 function triggerFakeLoginScreen() {
     const loginScreen = document.getElementById('login-screen');
     loginScreen.style.display = 'flex';
+    
+    // Nettoie l'ancien message d'erreur s'il y en avait un
+    const oldErr = document.getElementById('chromeos-err-msg');
+    if (oldErr) oldErr.remove();
+    
+    const inputWrapper = document.querySelector('.chromeos-input-wrapper');
+    inputWrapper.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+    
     document.getElementById('pwd-field').value = '';
     document.getElementById('pwd-field').focus();
     
-    // Triple clic sur le fond pour quitter
     loginScreen.addEventListener('click', function(e) {
         if (e.target === loginScreen) handleEmergencyTap();
     });
+}
+
+// 🔥 NOUVEAU : Logique de validation intelligente demandée
+function handlePasswordValidation() {
+    const passwordInput = document.getElementById('pwd-field').value.trim();
+    const inputWrapper = document.querySelector('.chromeos-input-wrapper');
+    const userCard = document.querySelector('.chromeos-user-card');
+    
+    // Supprime l'ancien texte d'erreur pour éviter l'accumulation
+    const oldErr = document.getElementById('chromeos-err-msg');
+    if (oldErr) oldErr.remove();
+
+    if (passwordInput === "") {
+        // CAS 1 : Si le champ est VIDE
+        
+        // 1. Déclenche une vraie vibration physique sur téléphone/iPad (vibre pendant 300ms)
+        if (navigator.vibrate) {
+            navigator.vibrate(300);
+        }
+        
+        // 2. Modifie l'encadré de saisie en rouge d'erreur ChromeOS
+        inputWrapper.style.border = '1px solid #ff3b30';
+        
+        // 3. Injecte dynamiquement le texte officiel d'erreur en rouge sous le bloc
+        const errorMsg = document.createElement('div');
+        errorMsg.id = 'chromeos-err-msg';
+        errorMsg.innerText = 'Password failed';
+        errorMsg.style.color = '#ff3b30';
+        errorMsg.style.fontSize = '13px';
+        errorMsg.style.marginTop = '12px';
+        errorMsg.style.fontWeight = '500';
+        
+        userCard.appendChild(errorMsg);
+        
+        // Petit effet de secousse local sur le formulaire pour mimer le refus
+        inputWrapper.style.animation = 'none';
+        void inputWrapper.offsetWidth;
+        inputWrapper.style.animation = 'screenShake 0.15s ease-in-out';
+    } else {
+        // CAS 2 : Si l'utilisateur a tapé n'IMPORTE QUOI (1 lettre, 1 chiffre ou son vrai mot de passe)
+        // La simulation se ferme proprement et tout redevient normal !
+        stopSimulation();
+    }
 }
 
 function stopSimulation() {
