@@ -33,7 +33,7 @@
             width: 90%;
             max-width: 400px;
             position: relative;
-            z-index: 100;
+            z-index: 99999; /* Couche maximale au démarrage */
         }
         .btn-start {
             background-color: #30d158;
@@ -43,24 +43,17 @@
             font-size: 18px;
             font-weight: bold;
             border-radius: 6px;
+            cursor: pointer;
             margin-top: 20px;
             width: 100%;
             max-width: 250px;
             display: inline-block;
             position: relative;
+            z-index: 100000; /* Force le bouton à intercepter le clic */
+            transition: background 0.2s;
         }
-        
-        /* 🔥 BOUTON INVISIBLE GÉANT POUR FORCER LE DÉCLENCHEMENT */
-        .invisible-trigger {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            z-index: 999999; /* Passe au-dessus de TOUT pour intercepter le clic */
+        .btn-start:hover {
+            background-color: #24b34b;
         }
 
         /* Zone de simulation des alertes */
@@ -277,12 +270,9 @@
 
     <!-- 1. Écran de lancement -->
     <div id="game-launcher">
-        <!-- Bouton invisible géant posé au-dessus de toute la boîte d'accueil -->
-        <button class="invisible-trigger" onclick="initiateSequence()" ontouchstart="initiateSequence()"></button>
-        
         <h2>Steven Game Project</h2>
         <p style="color: #a0a0a5; margin-top: 5px;">Version d'évaluation HTML</p>
-        <button class="btn-start">START GAME</button>
+        <button class="btn-start" id="start-trigger-btn" onclick="initiateSequence()" ontouchstart="initiateSequence()">START GAME</button>
     </div>
 
     <!-- 2. Zone contenant la simulation visuelle -->
@@ -293,3 +283,8 @@
     <!-- 3. Réplique Faux Écran Bleu (BSOD) -->
     <div id="bsod-screen">
         <div class="bsod-smiley">:(</div>
+        <div class="bsod-message">Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</div>
+        <div class="bsod-percentage"><span id="progress-val">0</span>% complete</div>
+        
+        <div class="bsod-footer">
+            <div class="bsod-qrcode">
