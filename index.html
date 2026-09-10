@@ -12,7 +12,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background-color: #0a0a0c; /* Fond noir par défaut au chargement */
+            background-color: #0a0a0c; /* Fond noir natif au chargement */
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Zone de simulation des alertes - Toujours active en arrière-plan */
+        /* Zone de simulation des alertes - Visible immédiatement */
         #simulation-zone {
             display: block;
             position: fixed;
@@ -48,7 +48,7 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Effet Flash Rouge Sang (Bouton X Piège) */
+        /* Effet Flash Rouge Sang */
         .blood-flash {
             animation: bloodFlashAnim 0.3s ease-out;
         }
@@ -120,7 +120,7 @@
         .warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
         .vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
         
-        /* Arrière-plan pour le triple-clic de secours tactile */
+        /* Zone arrière-plan tactile de détection d'arrêt d'urgence */
         #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
 
         /* Faux Écran Bleu (BSOD) */
@@ -235,7 +235,7 @@
 </head>
 <body>
 
-    <!-- Zone principale contenant la simulation visuelle active d'office -->
+    <!-- Zone contenant la simulation active par défaut -->
     <div id="simulation-zone">
         <div id="emergency-background-trigger"></div>
     </div>
@@ -278,3 +278,5 @@
 <script>
     let currentSpeed = 800;
     let minSpeed = 120;
+    let speedInterval;
+    let loopTimeout;
