@@ -42,14 +42,12 @@
         </div>
     </div>
 
-    <!-- 🔥 NOUVEAU : Faux Écran de Démarrage / Boot Windows 11 -->
+    <!-- 4. Faux Écran de Démarrage / Boot Noir -->
     <div id="boot-screen">
-        <!-- Logo Windows 11 épuré (4 carrés blancs) -->
         <div class="win11-logo">
             <div class="win-box"></div><div class="win-box"></div>
             <div class="win-box"></div><div class="win-box"></div>
         </div>
-        <!-- Roulette de chargement officielle en CSS -->
         <div class="win-spinner">
             <div class="dot"></div><div class="dot"></div><div class="dot"></div>
             <div class="dot"></div><div class="dot"></div>
@@ -57,16 +55,41 @@
         <div class="boot-text">Veuillez patienter...</div>
     </div>
 
-    <!-- 4. Faux écran de session -->
+    <!-- 5. 🔥 NOUVEAU : Réplique de l'Écran de Connexion ChromeOS avec l'avatar demandé -->
     <div id="login-screen">
-        <div class="login-avatar"></div>
-        <div class="login-username">Utilisateur</div>
-        <form id="login-form">
-            <div class="login-input-container">
-                <input type="password" class="login-password-field" placeholder="Mot de passe" required id="pwd-field">
-                <button type="submit" class="login-submit-btn">➔</button>
+        <!-- Conteneur central utilisateur -->
+        <div class="chromeos-user-card">
+            <!-- Profil d'invité gris identique à votre 2ème image -->
+            <div class="chromeos-avatar">
+                <svg viewBox="0 0 24 24" class="guest-svg-icon">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
             </div>
-        </form>
+            
+            <div class="chromeos-username">Taylor Smith</div>
+            
+            <form id="login-form">
+                <div class="chromeos-input-wrapper">
+                    <input type="password" class="chromeos-password-field" placeholder="Password" required id="pwd-field">
+                    <button type="submit" class="chromeos-submit-arrow">➔</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Fausse barre d'état système inférieure ChromeOS -->
+        <div class="chromeos-shelf">
+            <div class="shelf-left">
+                <button class="shelf-btn" type="button">⎋ Shut down</button>
+                <div class="shelf-btn highlighted-btn">ADSelfService Plus</div>
+                <button class="shelf-btn" type="button">Browse as Guest</button>
+                <button class="shelf-btn" type="button">Add Person</button>
+            </div>
+            <div class="shelf-right">
+                <span class="shelf-icon">📶</span>
+                <span class="shelf-icon">🔋</span>
+                <span class="shelf-time">6:30</span>
+            </div>
+        </div>
     </div>
 
     <!-- Appel du fichier JavaScript -->
