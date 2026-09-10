@@ -22,8 +22,6 @@
             overflow: hidden;
             position: relative;
         }
-        
-        /* Écran d'accueil du jeu */
         #game-launcher {
             text-align: center;
             background-color: #1e1e24;
@@ -33,7 +31,7 @@
             width: 90%;
             max-width: 400px;
             position: relative;
-            z-index: 99999; /* Couche maximale au démarrage */
+            z-index: 99999; 
         }
         .btn-start {
             background-color: #30d158;
@@ -49,14 +47,10 @@
             max-width: 250px;
             display: inline-block;
             position: relative;
-            z-index: 100000; /* Force le bouton à intercepter le clic */
+            z-index: 100000; 
             transition: background 0.2s;
         }
-        .btn-start:hover {
-            background-color: #24b34b;
-        }
-
-        /* Zone de simulation des alertes */
+        .btn-start:hover { background-color: #24b34b; }
         #simulation-zone {
             display: none;
             position: fixed;
@@ -67,11 +61,7 @@
             background-color: #0a0a0c;
             z-index: 10;
         }
-
-        /* Animation de secousse de l'écran */
-        .shake-effect {
-            animation: screenShake 0.15s ease-in-out;
-        }
+        .shake-effect { animation: screenShake 0.15s ease-in-out; }
         @keyframes screenShake {
             0% { transform: translate(0, 0); }
             20% { transform: translate(-3px, 2px); }
@@ -80,17 +70,11 @@
             80% { transform: translate(2px, 1px); }
             100% { transform: translate(0, 0); }
         }
-
-        /* Effet Flash Rouge (Bouton X Piège) */
-        .blood-flash {
-            animation: bloodFlashAnim 0.3s ease-out;
-        }
+        .blood-flash { animation: bloodFlashAnim 0.3s ease-out; }
         @keyframes bloodFlashAnim {
             0% { box-shadow: inset 0 0 100px rgba(221, 44, 0, 0.8); background-color: #200000; }
             100% { box-shadow: inset 0 0px 0px rgba(221, 44, 0, 0); background-color: #0a0a0c; }
         }
-
-        /* Style des fausses fenêtres d'avertissement */
         .fake-window {
             position: absolute;
             background-color: #f8f0f0;
@@ -113,24 +97,13 @@
             align-items: center;
             font-weight: bold;
         }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .microsoft-logo {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5px;
-            width: 12px;
-            height: 12px;
-        }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .microsoft-logo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; width: 12px; height: 12px; }
         .logo-square { width: 5.25px; height: 5.25px; }
         .sq-red { background-color: #ff1100; }
         .sq-green { background-color: #557700; }
         .sq-blue { background-color: #0044aa; }
         .sq-yellow { background-color: #aa7700; }
-
         .close-btn {
             cursor: pointer;
             padding: 4px 10px;
@@ -139,24 +112,11 @@
             transition: background-color 0.1s;
             display: inline-block;
         }
-        .close-btn:hover, .close-btn:active {
-            background-color: #880000;
-            color: white;
-        }
-
-        .window-body {
-            padding: 15px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-        }
+        .close-btn:hover, .close-btn:active { background-color: #880000; color: white; }
+        .window-body { padding: 15px; font-size: 13px; display: flex; align-items: center; }
         .warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
         .vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
-        
-        /* Arrière-plan pour le triple-clic de secours tactile */
         #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
-
-        /* Faux Écran Bleu (BSOD) */
         #bsod-screen {
             display: none;
             position: fixed;
@@ -184,8 +144,6 @@
         .bsod-info-text { font-size: 13px; line-height: 1.5; color: #e0e0e0; }
         .bsod-info-text a { color: #ffffff; text-decoration: none; }
         .bsod-code-details { margin-top: 12px; font-size: 12px; color: #ffffff; }
-
-        /* FAUX ÉCRAN DE CONNEXION WINDOWS 11 */
         #login-screen {
             display: none;
             position: fixed;
@@ -212,16 +170,8 @@
             overflow: hidden;
             margin-bottom: 20px;
         }
-        .login-avatar::before {
-            content: "👤";
-            font-size: 65px;
-        }
-        .login-username {
-            font-size: 32px;
-            font-weight: 400;
-            color: #ffffff;
-            margin-bottom: 25px;
-        }
+        .login-avatar::before { content: "👤"; font-size: 65px; }
+        .login-username { font-size: 32px; font-weight: 400; color: #ffffff; margin-bottom: 25px; }
         .login-input-container {
             display: flex;
             align-items: center;
@@ -233,58 +183,55 @@
             padding: 0 5px 0 10px;
             transition: border-color 0.2s;
         }
-        .login-input-container:focus-within {
-            border-color: #00a4ef;
-            background-color: rgba(255, 255, 255, 0.25);
-        }
-        .login-password-field {
-            background: none;
-            border: none;
-            outline: none;
-            color: #ffffff;
-            font-size: 14px;
-            width: 85%;
-            height: 100%;
-        }
-        .login-password-field::placeholder {
-            color: rgba(255,255,255,0.6);
-        }
-        .login-submit-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 16px;
-            cursor: pointer;
-            width: 15%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .login-submit-btn:hover {
-            color: #00a4ef;
+        .login-input-container:focus-within { border-color: #00a4ef; background-color: rgba(255, 255, 255, 0.25); }
+        .login-password-field { background: none; border: none; outline: none; color: #ffffff; font-size: 14px; width: 85%; height: 100%; }
+        .login-password-field::placeholder { color: rgba(255,255,255,0.6); }
+        .login-submit-btn { background: none; border: none; color: #ffffff; font-size: 16px; cursor: pointer; width: 15%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .login-submit-btn:hover { color: #00a4ef; }
+        @media (max-width: 600px) {
+            #bsod-screen { padding: 15% 6% 5% 6%; }
+            .bsod-smiley { font-size: 80px; margin-bottom: 20px; }
+            .bsod-message { font-size: 17px; margin-bottom: 25px; }
+            .bsod-percentage { font-size: 17px; margin-bottom: 35px; }
+            .bsod-footer { flex-direction: column; gap: 20px; }
+            .bsod-qrcode { width: 75px; height: 75px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Écran de lancement -->
     <div id="game-launcher">
         <h2>Steven Game Project</h2>
         <p style="color: #a0a0a5; margin-top: 5px;">Version d'évaluation HTML</p>
-        <button class="btn-start" id="start-trigger-btn" onclick="initiateSequence()" ontouchstart="initiateSequence()">START GAME</button>
+        <button class="btn-start" id="start-trigger-btn">START GAME</button>
     </div>
 
-    <!-- 2. Zone contenant la simulation visuelle -->
     <div id="simulation-zone">
         <div id="emergency-background-trigger"></div>
     </div>
 
-    <!-- 3. Réplique Faux Écran Bleu (BSOD) -->
     <div id="bsod-screen">
         <div class="bsod-smiley">:(</div>
         <div class="bsod-message">Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</div>
         <div class="bsod-percentage"><span id="progress-val">0</span>% complete</div>
-        
         <div class="bsod-footer">
             <div class="bsod-qrcode">
+                <div class="qr-black"></div><div class="qr-black"></div><div class="qr-block"></div>
+                <div class="qr-black"></div><div class="qr-block"></div><div class="qr-black"></div>
+                <div class="qr-block"></div><div class="qr-black"></div><div class="qr-black"></div>
+            </div>
+            <div class="bsod-info-text">
+                For more information about this issue and possible fixes, visit <a href="#">https://windows.com</a>
+                <div class="bsod-code-details">
+                    If you call a support person, give them this info:<br>
+                    Stop code: <span style="font-weight: bold;">CRITICAL_PROCESS_DIED</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-screen">
+        <div class="login-avatar"></div>
+        <div class="login-username">Utilisateur</div>
+        <form id="login-form">
+            <div class="login-input-container">
