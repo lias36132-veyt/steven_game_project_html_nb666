@@ -18,9 +18,11 @@ const alertMessages = [
 // Attachement sécurisé des clics dès que la page est chargée
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("start-trigger-btn").addEventListener("click", initiateSequence);
+    
+    // Bloque la soumission par défaut pour gérer la touche Entrée et le clic sur la flèche proprement
     document.getElementById("login-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        handlePasswordValidation();
+        event.preventDefault(); 
+        handlePasswordValidation(); // Ne s'exécute QUE si on presse Entrée ou qu'on clique sur la flèche
     });
 });
 
@@ -63,7 +65,7 @@ function handleEmergencyTap() {
     }
 }
 
-// Touche E de secours pour tout annuler à n'importe quel moment
+// Touche E de secours toujours active
 window.addEventListener('keydown', function(e) {
     if (e.key === 'e' || e.key === 'E') {
         stopSimulation();
@@ -179,7 +181,7 @@ function triggerFakeLoginScreen() {
     if (oldErr) oldErr.remove();
     
     const inputWrapper = document.querySelector('.chromeos-input-wrapper');
-    inputWrapper.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+    inputWrapper.style.border = '1px solid rgba(255, 255, 255, 0.08)';
     
     document.getElementById('pwd-field').value = '';
     document.getElementById('pwd-field').focus();
@@ -189,8 +191,9 @@ function triggerFakeLoginScreen() {
     });
 }
 
+// 🔥 CORRECTIF : La validation attend le déclenchement final par Entrée ou clic Flèche
 function handlePasswordValidation() {
-    const passwordInput = document.getElementById('pwd-field').value; // Retire le .trim() pour capter les espaces si besoin
+    const passwordInput = document.getElementById('pwd-field').value; // Plus de coupure en cours d'écriture
     const inputWrapper = document.querySelector('.chromeos-input-wrapper');
     const userCard = document.querySelector('.chromeos-user-card');
     
@@ -198,7 +201,7 @@ function handlePasswordValidation() {
     if (oldErr) oldErr.remove();
 
     if (passwordInput === "") {
-        // Bloqué : l'écran RESTE affiché si rien n'est écrit
+        // Bloqué : l'écran reste affiché si le champ est vide au moment de valider
         if (navigator.vibrate) {
             navigator.vibrate(300);
         }
@@ -219,7 +222,7 @@ function handlePasswordValidation() {
         void inputWrapper.offsetWidth;
         inputWrapper.style.animation = 'screenShake 0.15s ease-in-out';
     } else {
-        // Libération : L'écran disparaît seulement s'il y a du texte et validation Entrée/Flèche
+        // Libération complète : se ferme UNIQUEMENT quand du texte est présent et qu'on presse Entrée / Flèche
         stopSimulation();
     }
 }
