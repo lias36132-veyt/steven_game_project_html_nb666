@@ -33,7 +33,7 @@
             width: 90%;
             max-width: 400px;
             position: relative;
-            z-index: 1000;
+            z-index: 100; /* Assure que le menu est visible au départ */
         }
         .btn-start {
             background-color: #30d158;
@@ -49,23 +49,22 @@
             max-width: 250px;
             display: inline-block;
             position: relative;
-            z-index: 2000;
-            transition: background 0.2s;
+            z-index: 200; /* Priorité absolue au clic sur le bouton */
         }
         .btn-start:hover {
             background-color: #24b34b;
         }
 
-        /* Zone de simulation des alertes */
+        /* Zone de simulation des alertes - CHANGEMENT MAJEUR DE COUCHE */
         #simulation-zone {
             display: none;
-            position: absolute;
+            position: fixed; /* Utilisation de fixed pour couvrir tout l'écran de force */
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: #0a0a0c;
-            z-index: 10;
+            z-index: 999; /* Passe de force au-dessus du lanceur */
         }
 
         /* Animation de secousse de l'écran */
@@ -81,7 +80,7 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Effet Flash Rouge Sang (Bouton X Piège) */
+        /* Effet Flash Rouge Sang */
         .blood-flash {
             animation: bloodFlashAnim 0.3s ease-out;
         }
@@ -99,7 +98,7 @@
             width: 280px;
             box-shadow: 0 4px 16px rgba(100,0,0,0.5);
             font-family: sans-serif;
-            z-index: 20;
+            z-index: 1000;
             border-radius: 4px 4px 0 0;
             overflow: hidden;
         }
@@ -153,8 +152,8 @@
         .warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
         .vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
         
-        /* Arrière-plan pour le triple-clic de secours tactile */
-        #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
+        /* Arrière-plan pour le triple-clic de secours */
+        #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 900; }
 
         /* Faux Écran Bleu (BSOD) */
         #bsod-screen {
@@ -162,13 +161,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: #0078d7;
             color: #ffffff;
             font-family: 'Segoe UI', sans-serif;
             padding: 10% 8% 5% 8%;
-            z-index: 999998;
+            z-index: 99999;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
@@ -191,10 +190,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: radial-gradient(circle, #2a3554 0%, #0f1322 100%);
-            z-index: 999999;
+            z-index: 100000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -264,6 +263,15 @@
         .login-submit-btn:hover {
             color: #00a4ef;
         }
+
+        @media (max-width: 600px) {
+            #bsod-screen { padding: 15% 6% 5% 6%; }
+            .bsod-smiley { font-size: 80px; margin-bottom: 20px; }
+            .bsod-message { font-size: 17px; margin-bottom: 25px; }
+            .bsod-percentage { font-size: 17px; margin-bottom: 35px; }
+            .bsod-footer { flex-direction: column; gap: 20px; }
+            .bsod-qrcode { width: 75px; height: 75px; }
+        }
     </style>
 </head>
 <body>
@@ -272,21 +280,9 @@
     <div id="game-launcher">
         <h2>Steven Game Project</h2>
         <p style="color: #a0a0a5; margin-top: 5px;">Version d'évaluation HTML</p>
-        <button class="btn-start" onclick="initiateSequence()">START GAME</button>
+        <!-- Onclick direct en dur pour parer à tout bug d'écouteur -->
+        <button class="btn-start" id="start-trigger-btn" onclick="initiateSequence()">START GAME</button>
     </div>
 
     <!-- 2. Zone contenant la simulation visuelle -->
     <div id="simulation-zone">
-        <div id="emergency-background-trigger"></div>
-    </div>
-
-    <!-- 3. Réplique Faux Écran Bleu (BSOD) -->
-    <div id="bsod-screen">
-        <div class="bsod-smiley">:(</div>
-        <div class="bsod-message">Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</div>
-        <div class="bsod-percentage"><span id="progress-val">0</span>% complete</div>
-        
-        <div class="bsod-footer">
-            <div class="bsod-qrcode">
-                <div class="qr-black"></div><div class="qr-black"></div><div class="qr-block"></div>
-                <div class="qr-black"></div><div class="qr-block"></div><div class="qr-black"></div>
