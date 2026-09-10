@@ -110,6 +110,7 @@ body {
 .warning-sign { color: #dd2c00; font-weight: bold; font-size: 20px; }
 .vertical-divider { width: 1px; height: 24px; background-color: #ddcccc; margin: 0 15px; }
 #emergency-background-trigger { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; }
+
 #bsod-screen {
     display: none;
     position: fixed;
@@ -137,6 +138,76 @@ body {
 .bsod-info-text { font-size: 13px; line-height: 1.5; color: #e0e0e0; }
 .bsod-info-text a { color: #ffffff; text-decoration: none; }
 .bsod-code-details { margin-top: 12px; font-size: 12px; color: #ffffff; }
+
+/* 🔥 DESIGN ÉCRAN DE BOOT WINDOWS 11 */
+#boot-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000; /* Fond noir de reboot */
+    z-index: 999999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+.win11-logo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 80px;
+}
+.win-box {
+    width: 43px;
+    height: 43px;
+    background-color: #ffffff;
+}
+/* Recréation de la roulette de chargement fluide de Windows */
+.win-spinner {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 25px;
+}
+.win-spinner .dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 0;
+    left: 18px;
+    transform-origin: 2px 20px;
+    animation: winOrbit 3.5s infinite ease-in-out;
+    opacity: 0;
+}
+.win-spinner .dot:nth-child(1) { animation-delay: 0.15s; }
+.win-spinner .dot:nth-child(2) { animation-delay: 0.3s; }
+.win-spinner .dot:nth-child(3) { animation-delay: 0.45s; }
+.win-spinner .dot:nth-child(4) { animation-delay: 0.6s; }
+.win-spinner .dot:nth-child(5) { animation-delay: 0.75s; }
+
+@keyframes winOrbit {
+    0% { transform: rotate(0deg); opacity: 1; animation-timing-function: ease-out; }
+    7% { transform: rotate(180deg); animation-timing-function: linear; }
+    30% { transform: rotate(360deg); animation-timing-function: ease-in-out; }
+    40% { transform: rotate(540deg); animation-timing-function: ease-out; }
+    55% { transform: rotate(720deg); opacity: 1; animation-timing-function: ease-in-out; }
+    75% { transform: rotate(900deg); opacity: 0; }
+    100% { transform: rotate(900deg); opacity: 0; }
+}
+.boot-text {
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
 #login-screen {
     display: none;
     position: fixed;
@@ -145,7 +216,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: radial-gradient(circle, #2a3554 0%, #0f1322 100%);
-    z-index: 999999;
+    z-index: 1000000;
     flex-direction: column;
     justify-content: center;
     align-items: center;
